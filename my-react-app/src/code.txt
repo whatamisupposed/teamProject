@@ -1,0 +1,67 @@
+import os
+import psycopg2
+from psycopg2 import sql
+
+DATABASE_URL = os.getenv('DATABASE_URL')
+
+conn = psycopg2.connect(DATABASE_URL)
+cursor = conn.cursor()
+
+def register_student(username, email, firstname, lastname, telephone, address):
+    query = """
+    INSERT INTO students (username, email, firstname, lastname, telephone, address)
+    VALUES (%s, %s, %s, %s, %s, %s);
+    """
+    cursor.execute(query, (username, email, firstname, lastname, telephone, address))
+    conn.commit()
+
+def unregister_student(student_id):
+    query = "DELETE FROM students WHERE id = %s;"
+    cursor.execute(query, (student_id,))
+    conn.commit()
+
+def register_for_course(student_id, course_id):
+    query = "INSERT INTO registrations (student_id, course_id) VALUES (%s, %s);"
+    cursor.execute(query, (student_id, course_id))
+    conn.commit()
+
+def unregister_from_course(student_id, course_id):
+    query = "DELETE FROM registrations WHERE student_id = %s AND course_id = %s;"
+    cursor.execute(query, (student_id, course_id))
+    conn.commit()
+
+def filter_students(keyword):
+    query = """
+    SELECT * FROM students WHERE 
+    username LIKE %s OR email LIKE %s OR firstname LIKE %s OR lastname LIKE %s;
+    """
+    cursor.execute(query, (f'%{keyword}%', f'%{keyword}%', f'%{keyword}%', f'%{keyword}%'))
+    return cursor.fetchall()
+
+DATABASE_URL=your_database_url
+
+def demo():
+    # Register students
+    register_student('jdoe', 'jdoe@example.com', 'John', 'Doe', '123-456-7890', '123 Elm St')
+    register_student('asmith', 'asmith@example.com', 'Alice', 'Smith', '987-654-3210', '456 Oak St')
+    
+    # Register for a course
+    register_for_course(1, 1)  # Assuming student_id=1, course_id=1
+    
+    # Filter students
+    students = filter_students('doe')
+    print(students)
+    
+    # Unregister from a course
+    unregister_from_course(1, 1)
+    
+    # Unregister a student
+    unregister_student(1)
+    
+    # Filter courses
+    courses = filter_courses('Math')
+    print(courses)
+
+# Run the demo script
+if __name__ == "__main__":
+    demo()
