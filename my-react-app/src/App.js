@@ -1,6 +1,7 @@
 import './App.css';
 
 
+
 const express = require('express');
 const { sequelize } = require('./models');
 const studentRoutes = require('./routes/studentRoutes');
