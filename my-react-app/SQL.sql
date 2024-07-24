@@ -20,16 +20,19 @@ CREATE TABLE registrations (
     PRIMARY KEY (student_id, course_id)
 );
 
-INSERT INTO students (username, email, firstname, lastname, telephone, address);
-VALUES (%s, %s, %s, %s, %s, %s);
+INSERT INTO students (username, email, firstname, lastname, telephone, address)
+VALUES ('johndoe', 'johndoe@example.com', 'John', 'Doe', '123-456-7890', '123 Main St');
 
-DELETE FROM students WHERE id = %s;
+INSERT INTO courses (course_name, course_description)
+VALUES ('Math 101', 'Introduction to Mathematics');
 
 INSERT INTO registrations (student_id, course_id)
-VALUES (%s, %s);
+VALUES (1, 1);
 
-DELETE FROM registrations WHERE student_id = %s AND course_id = %s;
+DELETE FROM students WHERE id = 1;
 
-SELECT * FROM students WHERE username LIKE %s OR email LIKE %s OR firstname LIKE %s OR lastname LIKE %s;
+DELETE FROM registrations WHERE student_id = 1 AND course_id = 1;
 
-SELECT * FROM courses WHERE course_name LIKE %s;
+SELECT * FROM students WHERE username LIKE '%john%' OR email LIKE '%example%' OR firstname LIKE '%John%' OR lastname LIKE '%Doe%';
+
+SELECT * FROM courses WHERE course_name LIKE '%Math%';
