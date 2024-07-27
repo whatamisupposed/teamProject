@@ -4,6 +4,8 @@ import './index.css';
 import App from '../my-react-app/src/App';
 import reportWebVitals from '../my-react-app/src/reportWebVitals';
 
+const port = process.env.port || 5432
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
