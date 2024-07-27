@@ -24,3 +24,29 @@ const express = require('express');
 
 
 const users = []; // In-memory user storage
+
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  const user = await User.findOne({ username });
+
+  if (!user) {
+      return res.status(400).send('User not found');
+  }
+
+  const isMatch = await bcrypt.compare(password, user.password);
+
+  if (!isMatch) {
+      return res.status(400).send('Invalid credentials');
+  }
+
+  const token = jwt.sign({ id: user._id }, 'your_jwt_secret');
+
+  res.status(200).send({ token });
+});
+
+const auth = require('./middleware/auth');
+
+app.get('/protected', auth, (req, res) => {
+    res.send('This is a protected route');
+});
