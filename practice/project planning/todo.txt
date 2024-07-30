@@ -1,0 +1,9 @@
+FRONTEND
+
+- Login Page
+- Register Page
+- Courses Library
+- Inbox Page
+- Help Page
+
+- Conditional Rendering for an admin page which showcases all students and which courses they are in
