@@ -1,5 +1,5 @@
 const mongoose = require('../config/mongoose'); // This ensures the database connection is established
-const Student = require('./student');
+//const Student = require('./student');
 const Course = require('./course');
 const Registration = require('./registration');
 
