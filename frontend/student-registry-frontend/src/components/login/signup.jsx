@@ -14,6 +14,18 @@ function Signup() {
                 <label className="text-lg font-medium" for="Password">Password:</label>
                 <input className="w-full border-2 border-gray-100 rounded-xl p-4 mt-1 bg-transparent" type="Password" placeholder="Enter your Password" />
             </div>
+            <div className="mt-8 flex justify-between items-center">
+                <div>
+                    <input type="radio" 
+                    id="student" name="userType" />
+                    <label className="ml-2 font-medium text-base" for="student">I'm a Student</label>
+                </div>
+                <div>
+                    <input type="radio" 
+                    id="admin" name="userType" />
+                    <label className="ml-2 font-medium text-base" for="admin">I'm a Administrator</label>
+                </div>
+            </div>
             <div className="mt-8 flex flex-col gap-y-4">
                 <button className="active:scale-[.98] active:duration-75 hover:scale-[1.01] ease-in-out transition-all py-3 rounded-xl bg-blue-600 text-white text-lg font-bold">Sign up</button>
                 <button className="flex py-3 border-2 border-gray-100 items-center justify-center gap-2 active:scale-[.98] active:duration-75 hover:scale-[1.01] rounded-xl ease-in-out transition-all">
