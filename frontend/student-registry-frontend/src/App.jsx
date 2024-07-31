@@ -7,13 +7,28 @@ import Login from './components/login/login'
 import Courses from './components/courses/courses'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeComponent, setActiveComponent] = useState('Dashboard');
+
+  const renderComponent = () => {
+    switch (activeComponent) {
+      case 'Dashboard':
+        return <Dashboard />;
+      case 'Account':
+        return <AccountPage />;
+      case 'Login':
+        return <Login />;
+      case 'Courses':
+        return <Courses />;
+      default:
+        return <Dashboard />;
+    }
+  };
 
   return (
     <>
       <div className="flex">
-        <Sidebar />
-        <AccountPage />
+      <Sidebar setActiveComponent={setActiveComponent} />
+      {renderComponent()}
       </div>
       
     </>
