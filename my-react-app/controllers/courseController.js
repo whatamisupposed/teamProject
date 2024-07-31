@@ -11,7 +11,7 @@ exports.createCourse = async (req, res) => {
 
 exports.deleteCourse = async (req, res) => {
   try {
-    const course = await Course.destroy({ where: { id: req.params.id } });
+    await Course.destroy({ where: { id: req.params.id } });
     res.status(204).end();
   } catch (err) {
     res.status(400).json({ error: err.message });

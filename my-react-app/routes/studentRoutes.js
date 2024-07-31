@@ -1,12 +1,11 @@
 const express = require('express');
-const studentController = require('../controllers/studentController');
-
 const router = express.Router();
+const studentController = require('../controllers/studentController');
+const auth = require('../middleware/auth'); // Middleware to verify token
 
-router.post('/students', studentController.registerStudent);
-router.delete('/students/:id', studentController.unregisterStudent);
-router.get('/students', studentController.filterStudents);
-router.post('/students/:studentId/courses/:courseId', studentController.registerForCourse);
-router.delete('/students/:studentId/courses/:courseId', studentController.unregisterFromCourse);
+router.post('/register', studentController.register);
+router.post('/login', studentController.login);
+router.get('/profile', auth, studentController.getProfile);
+router.get('/', auth, studentController.getAllStudents);
 
 module.exports = router;

@@ -1,3 +1,4 @@
+//mongo.js
 db.students.insertOne({
     "username": "johndoe",
     "email": "johndoe@example.com",

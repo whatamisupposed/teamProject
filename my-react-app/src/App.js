@@ -1,47 +1,38 @@
-const express = require('express');
-const path = require('path');
-const { sequelize } = require('./models');
-const studentRoutes = require('./routes/studentRoutes');
-const courseRoutes = require('./routes/courseRoutes');
+//App.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import App from './App';
+import { AuthProvider } from './context/AuthContext';
 
+ReactDOM.render(
+  <React.StrictMode>
+    <AuthProvider>
+      <Router>
+        <App />
+      </Router>
+    </AuthProvider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+const mongoose = require('mongoose');
+const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 5432;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-// API routes
-app.use('/api/students', studentRoutes);
-app.use('/api/courses', courseRoutes);
-
-// Serve React app
-app.use(express.static(path.resolve(__dirname, "../client/dist")));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log('Connected to MongoDB');
+}).catch((err) => {
+  console.error('Error connecting to MongoDB', err);
 });
 
-// Start server
-sequelize.sync().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
+// Your routes here
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
-
-import './App.css';
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Login from './Login';
-import Protected from './Protected';
-
-function App() {
-  return (
-    <Router>
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/protected" component={Protected} />
-      </Switch>
-    </Router>
-  );
-}
-
-export default App;

@@ -1,60 +1,56 @@
-const { Student, Course } = require('../models');
+const Student = require('../models/Student');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-exports.registerStudent = async (req, res) => {
+exports.register = async (req, res) => {
   try {
-    const student = await Student.create(req.body);
-    res.status(201).json(student);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
-
-exports.unregisterStudent = async (req, res) => {
-  try {
-    const student = await Student.destroy({ where: { id: req.params.id } });
-    res.status(204).end();
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
-
-exports.filterStudents = async (req, res) => {
-  try {
-    const keyword = req.query.keyword || '';
-    const students = await Student.findAll({
-      where: {
-        [Op.or]: [
-          { username: { [Op.like]: `%${keyword}%` } },
-          { email: { [Op.like]: `%${keyword}%` } },
-          { firstname: { [Op.like]: `%${keyword}%` } },
-          { lastname: { [Op.like]: `%${keyword}%` } },
-        ],
-      },
+    const { username, email, firstname, lastname, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newStudent = new Student({
+      username,
+      email,
+      firstname,
+      lastname,
+      password: hashedPassword,
     });
+
+    await newStudent.save();
+    res.status(201).json({ message: 'Student registered successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.login = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const student = await Student.findOne({ username });
+    if (!student) return res.status(400).json({ message: 'User not found' });
+
+    const isMatch = await bcrypt.compare(password, student.password);
+    if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+
+    const token = jwt.sign({ id: student._id, isAdmin: student.isAdmin }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.json({ token });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getProfile = async (req, res) => {
+  try {
+    const student = await Student.findById(req.user.id);
+    res.json(student);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getAllStudents = async (req, res) => {
+  try {
+    const students = await Student.find();
     res.json(students);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
-
-exports.registerForCourse = async (req, res) => {
-  try {
-    const student = await Student.findByPk(req.params.studentId);
-    const course = await Course.findByPk(req.params.courseId);
-    await student.addCourse(course);
-    res.status(201).json({ message: 'Registered for course' });
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-};
-
-exports.unregisterFromCourse = async (req, res) => {
-  try {
-    const student = await Student.findByPk(req.params.studentId);
-    const course = await Course.findByPk(req.params.courseId);
-    await student.removeCourse(course);
-    res.status(204).end();
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };

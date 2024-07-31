@@ -1,12 +1,14 @@
-module.exports = (sequelize, DataTypes) => {
-    const Student = sequelize.define('Student', {
-      username: { type: DataTypes.STRING, unique: true, allowNull: false },
-      email: { type: DataTypes.STRING, unique: true, allowNull: false },
-      firstname: { type: DataTypes.STRING, allowNull: false },
-      lastname: { type: DataTypes.STRING, allowNull: false },
-      telephone: DataTypes.STRING,
-      address: DataTypes.TEXT,
-    });
-    return Student;
-  };
-  
+const mongoose = require('mongoose');
+
+const StudentSchema = new mongoose.Schema({
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  firstname: { type: String, required: true },
+  lastname: { type: String, required: true },
+  password: { type: String, required: true },
+  isAdmin: { type: Boolean, default: false },
+});
+
+const Student = mongoose.model('Student', StudentSchema);
+
+module.exports = Student;
