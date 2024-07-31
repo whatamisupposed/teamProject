@@ -5,7 +5,7 @@ function Dashboard() {
 
   return (
     <>
-        <div className="flex w-full m-5">
+        <div className="flex w-full m-5 ml-28">
             <div className="w-3/4">
                 <div className="flex justify-between my-3">
                     <h1 className="text-2xl font-bold">Dashboard</h1>

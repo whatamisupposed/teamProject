@@ -7,7 +7,7 @@ import { TbBook2 } from "react-icons/tb";
 
 function Sidebar() {
     return (
-      <div className="flex flex-col justify-between h-screen bg-blue-600 w-24 items-center">
+      <div className="fixed flex flex-col justify-between h-screen bg-blue-600 w-24 items-center">
         <div className="flex flex-col justify-center w-24">
             <div className="flex justify-center">
                 <IoIosSchool size={75} />

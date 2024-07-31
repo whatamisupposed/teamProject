@@ -4,6 +4,7 @@ import Sidebar from './components/sidebar'
 import Dashboard from './components/dashboard/dashboard'
 import AccountPage from './components/account/accountPage'
 import Login from './components/login/login'
+import Courses from './components/courses/courses'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -11,7 +12,8 @@ function App() {
   return (
     <>
       <div className="flex">
-        <AccountPage />
+        <Sidebar />
+        <Courses />
       </div>
       
     </>
