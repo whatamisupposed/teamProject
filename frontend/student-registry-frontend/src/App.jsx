@@ -5,6 +5,8 @@ import Dashboard from './components/dashboard/dashboard'
 import AccountPage from './components/account/accountPage'
 import Login from './components/login/login'
 import Courses from './components/courses/courses'
+import Help from './components/help/help'
+import Inbox from './components/inbox/inbox'
 
 function App() {
   const [activeComponent, setActiveComponent] = useState('Dashboard');
@@ -19,6 +21,10 @@ function App() {
         return <Login />;
       case 'Courses':
         return <Courses />;
+      case 'Help':
+        return <Help />;
+      case 'Inbox':
+        return <Inbox />;
       default:
         return <Dashboard />;
     }
