@@ -13,7 +13,7 @@ function App() {
     <>
       <div className="flex">
         <Sidebar />
-        <Courses />
+        <AccountPage />
       </div>
       
     </>
