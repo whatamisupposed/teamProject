@@ -1,15 +1,18 @@
-const mongoose = require('../config/mongoose'); // This ensures the database connection is established
-//const Student = require('./student');
-const Course = require('./course');
-const Registration = require('./registration');
+const mongoose = require('../config/mongoose'); // Ensure the database connection is established
+const Student = require('./student'); // Import the Student model
+const Course = require('./course'); // Import the Course model
+const Registration = require('./registration'); // Import the Registration model
 
-// Ensure the references are populated
+// Define Student schema and virtuals
+const StudentSchema = Student.schema;
 StudentSchema.virtual('courses', {
   ref: 'Registration',
   localField: '_id',
   foreignField: 'student',
 });
 
+// Define Course schema and virtuals
+const CourseSchema = Course.schema;
 CourseSchema.virtual('students', {
   ref: 'Registration',
   localField: '_id',
