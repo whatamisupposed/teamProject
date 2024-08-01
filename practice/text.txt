@@ -1,5 +1,3 @@
-curl http://localhost:5000/getActors/getFilmById/1
-
-
-the elephant thing
-
+price and sorting
+enrolling and dashboard
+account stuff

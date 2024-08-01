@@ -1,3 +1,8 @@
+module.exports = {
+  mongodbUri: 'mongodb://localhost:5432/teamProject',
+};
+
+
 require('dotenv').config();
 
 module.exports = {
