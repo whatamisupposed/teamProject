@@ -1,8 +1,13 @@
 const mongoose = require('mongoose');
-const config = require('./config.js'); // Ensure this file exports mongodbUri
+const config = require('./config');
 
-// Connect to MongoDB
-mongoose.connect(config.mongodbUri, {
+const mongoUri = config.mongodbUri;
+
+if (!mongoUri) {
+  throw new Error('MongoDB connection URI is not defined in environment variables');
+}
+
+mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
