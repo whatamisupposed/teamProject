@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const StudentSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
-  firstname: { type: String, required: true },
-  lastname: { type: String, required: true },
   password: { type: String, required: true },
-  isAdmin: { type: Boolean, default: false },
+  email: { type: String, required: true, unique: true },
+  courses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }],
+  tuitionFees: { type: Number, default: 0 },
+  creditHours: { type: Number, default: 0 },
 });
 
 const Student = mongoose.model('Student', StudentSchema);
