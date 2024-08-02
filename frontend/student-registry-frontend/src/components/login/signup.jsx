@@ -1,4 +1,3 @@
-
 function Signup() {
 
     return (
@@ -41,4 +40,3 @@ function Signup() {
   }
   
   export default Signup
-  

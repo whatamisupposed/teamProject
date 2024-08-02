@@ -11,7 +11,7 @@ function Courses() {
         fetch("http://localhost:3000/api/courses")
             .then(response => response.json())
             .then(data => {
-                console.log("Fetched data:", data); // Debug log to verify data structure
+                
                 setCourses(data); // Set courses data
                 setFilteredCourses(data); // Initialize filteredCourses with all courses
             })

@@ -1,13 +1,12 @@
+// server.js
+
 const express = require('express');
 const path = require('path');
-const mongoose = require('./config/mongoose'); // Ensure this path is correct
+const mongoose = require('./config/mongoose');
 const studentRoutes = require('./routes/studentRoutes');
-const courseRoutes = require('./routes/courseRoutes'); // Ensure this path is correct
+const courseRoutes = require('./routes/courseRoutes');
+const authRoutes = require('./routes/authRoutes'); // Make sure this is correctly imported
 const bodyParser = require('body-parser');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { jwtSecret } = require('./config/config');
-const auth = require('./middleware/auth');
 const cors = require('cors');
 
 const app = express();
@@ -21,37 +20,8 @@ app.use(express.static(path.resolve(__dirname, "../client/dist")));
 
 // Routes
 app.use('/api/students', studentRoutes);
-app.use('/api/courses', courseRoutes);  // Course routes for fetching course data
-
-// User login
-app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
-
-  try {
-    const student = await Student.findOne({ where: { username } });
-
-    if (!student) {
-      return res.status(400).send("User not found");
-    }
-
-    const isMatch = await bcrypt.compare(password, student.password);
-
-    if (!isMatch) {
-      return res.status(400).send("Invalid credentials");
-    }
-
-    const token = jwt.sign({ id: student.id }, jwtSecret);
-
-    res.status(200).send({ token });
-  } catch (err) {
-    res.status(500).send("Server error");
-  }
-});
-
-// Protected route
-app.get("/protected", auth, (req, res) => {
-  res.send("This is a protected route");
-});
+app.use('/api/courses', courseRoutes);
+app.use('/api/auth', authRoutes); // Ensure this line is present
 
 // Serve React app
 app.get('*', (req, res) => {
@@ -59,9 +29,6 @@ app.get('*', (req, res) => {
 });
 
 // Start server
-app.listen(PORT, async () => {
+app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
-  await mongoose.connection.once('open', () => {
-    console.log('Connected to MongoDB');
-  });
 });
