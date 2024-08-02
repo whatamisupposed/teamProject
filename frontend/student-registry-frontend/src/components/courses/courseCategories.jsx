@@ -1,21 +1,33 @@
-
 import { IoSearchSharp } from "react-icons/io5";
 import { useState } from "react";
 
 function CourseCategories({ onFilterChange }) {
+    const [selectedSubjectAreas, setSelectedSubjectAreas] = useState(new Set());
     const [selectedPriceType, setSelectedPriceType] = useState("");
 
     const handleCheckboxChange = (e) => {
-        console.log("Checkbox changed:", e.target.id);
-        onFilterChange("subjectArea", e.target.id);
+        const value = e.target.id;
+        const newSelectedSubjectAreas = new Set(selectedSubjectAreas);
+        if (e.target.checked) {
+            newSelectedSubjectAreas.add(value);
+        } else {
+            newSelectedSubjectAreas.delete(value);
+        }
+        setSelectedSubjectAreas(newSelectedSubjectAreas);
+        onFilterChange({
+            subjectAreas: Array.from(newSelectedSubjectAreas),
+            priceType: selectedPriceType
+        });
     };
-    
+
     const handleRadioChange = (e) => {
-        console.log("Radio button changed:", e.target.id); 
-        setSelectedPriceType(e.target.id);
-        onFilterChange("priceType", e.target.id);
+        const value = e.target.id;
+        setSelectedPriceType(value);
+        onFilterChange({
+            subjectAreas: Array.from(selectedSubjectAreas),
+            priceType: value
+        });
     };
-    
 
     return (
         <div className="flex flex-col">
@@ -26,66 +38,33 @@ function CourseCategories({ onFilterChange }) {
             <div className="h-px bg-slate-300 mb-4"></div>
             <h1 className="text-xl font-bold">Subject Area</h1>
             <div className="flex flex-col ml-4">
-                <div>
-                    <input type="checkbox" id="Art & Design" onChange={handleCheckboxChange} />
-                    <label className="ml-2 font-medium text-base" htmlFor="Art & Design">Art & Design</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="Theology" onChange={handleCheckboxChange} />
-                    <label className="ml-2 font-medium text-base" htmlFor="Theology">Theology</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="Business" onChange={handleCheckboxChange} />
-                    <label className="ml-2 font-medium text-base" htmlFor="Business">Business</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="Computer Science" onChange={handleCheckboxChange} />
-                    <label className="ml-2 font-medium text-base" htmlFor="Computer Science">Computer Science</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="Data Science" onChange={handleCheckboxChange} />
-                    <label className="ml-2 font-medium text-base" htmlFor="Data Science">Data Science</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="Education & Teaching" onChange={handleCheckboxChange} />
-                    <label className="ml-2 font-medium text-base" htmlFor="Education & Teaching">Education & Teaching</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="Health & Medicine" onChange={handleCheckboxChange} />
-                    <label className="ml-2 font-medium text-base" htmlFor="Health & Medicine">Health & Medicine</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="Humanities" onChange={handleCheckboxChange} />
-                    <label className="ml-2 font-medium text-base" htmlFor="Humanities">Humanities</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="Mathematics" onChange={handleCheckboxChange} />
-                    <label className="ml-2 font-medium text-base" htmlFor="Mathematics">Mathematics</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="Programming" onChange={handleCheckboxChange} />
-                    <label className="ml-2 font-medium text-base" htmlFor="Programming">Programming</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="Science" onChange={handleCheckboxChange} />
-                    <label className="ml-2 font-medium text-base" htmlFor="Science">Science</label>
-                </div>
-                <div>
-                    <input type="checkbox" id="Social Sciences" onChange={handleCheckboxChange} />
-                    <label className="ml-2 font-medium text-base" htmlFor="Social Sciences">Social Sciences</label>
-                </div>
+                {/* List of checkboxes */}
+                {["Art & Design", "Theology", "Business", "Computer Science", "Data Science", "Education & Teaching", "Health & Medicine", "Humanities", "Mathematics", "Programming", "Science", "Social Sciences"].map(subject => (
+                    <div key={subject}>
+                        <input
+                            type="checkbox"
+                            id={subject}
+                            onChange={handleCheckboxChange}
+                        />
+                        <label className="ml-2 font-medium text-base" htmlFor={subject}>{subject}</label>
+                    </div>
+                ))}
             </div>
-
             <h1 className="text-xl font-bold mt-4">Price</h1>
             <div className="flex flex-col ml-4">
-                <div>
-                    <input type="radio" id="Free" name="priceType" checked={selectedPriceType === "Free"} onChange={handleRadioChange} />
-                    <label className="ml-2 font-medium text-base" htmlFor="Free">Free</label>
-                </div>
-                <div>
-                    <input type="radio" id="Paid" name="priceType" checked={selectedPriceType === "Paid"} onChange={handleRadioChange} />
-                    <label className="ml-2 font-medium text-base" htmlFor="Paid">Paid</label>
-                </div>
+                {/* List of radio buttons */}
+                {["Free", "Paid"].map(priceType => (
+                    <div key={priceType}>
+                        <input
+                            type="radio"
+                            id={priceType}
+                            name="priceType"
+                            checked={selectedPriceType === priceType}
+                            onChange={handleRadioChange}
+                        />
+                        <label className="ml-2 font-medium text-base" htmlFor={priceType}>{priceType}</label>
+                    </div>
+                ))}
             </div>
         </div>
     );
