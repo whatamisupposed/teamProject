@@ -1,3 +1,4 @@
+// Courses.jsx
 import { useState, useEffect } from "react";
 import CourseRegister from "./courseRegister";
 import CourseCategories from "./courseCategories";
@@ -57,6 +58,7 @@ function Courses() {
                                 endDate={course.endDate}
                                 price={course.price}
                                 subjectArea={course.subjectArea}
+                                color={course.color} // Pass the color property
                             />
                         ))
                     ) : (
