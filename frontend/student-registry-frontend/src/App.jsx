@@ -33,8 +33,10 @@ function App() {
   return (
     <>
       <div className="flex">
+      
       <Sidebar setActiveComponent={setActiveComponent} />
       {renderComponent()}
+      
       </div>
       
     </>
