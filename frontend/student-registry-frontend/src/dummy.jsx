@@ -3,7 +3,7 @@ import './App.css';
 import Sidebar from './components/sidebar';
 import Dashboard from './components/dashboard/dashboard';
 import AccountPage from './components/account/accountPage';
-import Login from './components/login/login';
+import Login from './components/login/form'; // Update import if necessary
 import Courses from './components/courses/courses';
 import Help from './components/help/help';
 import Inbox from './components/inbox/inbox';

@@ -1,59 +1,35 @@
+// backend/routes/studentRoutes.js
 const express = require('express');
-const Student = require('../models/student');
-const auth = require('../middleware/auth');
-
 const router = express.Router();
+const Student = require('../models/student'); // Adjust the path as needed
 
-// CRUD operations for students
-
-// Get all students
-router.get('/', async (req, res) => {
-  try {
-    const students = await Student.find();
-    res.json(students);
-  } catch (err) {
-    res.status(500).send('Server Error');
-  }
-});
-
-// Get a student by ID
+// Route to get student data by ID
 router.get('/:id', async (req, res) => {
+  const studentId = req.params.id;
+  console.log('Received request for student ID:', studentId); // Debug statement
+
   try {
-    const student = await Student.findById(req.params.id);
+    const student = await Student.findById(studentId);
+    console.log('Student data:', student); // Debug statement
+
+    if (!student) {
+      return res.status(404).json({ message: 'Student not found' });
+    }
+
+    res.status(200).json(student);
+  } catch (err) {
+    console.error('Error:', err); // Debug statement
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+router.get('/students/current', async (req, res) => {
+  try {
+    const studentId = req.user.id; // Assuming you have middleware to attach user info
+    const student = await Student.findById(studentId);
     res.json(student);
   } catch (err) {
-    res.status(500).send('Server Error');
-  }
-});
-
-// Create a new student
-router.post('/', async (req, res) => {
-  try {
-    const newStudent = new Student(req.body);
-    await newStudent.save();
-    res.json(newStudent);
-  } catch (err) {
-    res.status(500).send('Server Error');
-  }
-});
-
-// Update a student
-router.put('/:id', async (req, res) => {
-  try {
-    const student = await Student.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(student);
-  } catch (err) {
-    res.status(500).send('Server Error');
-  }
-});
-
-// Delete a student
-router.delete('/:id', async (req, res) => {
-  try {
-    await Student.findByIdAndDelete(req.params.id);
-    res.send('Student deleted');
-  } catch (err) {
-    res.status(500).send('Server Error');
+    res.status(500).json({ message: 'Server error' });
   }
 });
 

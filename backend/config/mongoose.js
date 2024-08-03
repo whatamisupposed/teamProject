@@ -1,23 +1,25 @@
 const mongoose = require('mongoose');
-const config = require('./config');
 
-const mongoUri = config.mongodbUri;
+// Replace 'yourdbname' with the name of your MongoDB database
+const dbURI = process.env.MONGODB_URI || 'mongodb+srv://marceluswork:EfHQz2FfDvgPFAOI@student-registry.7ayse6a.mongodb.net/';
 
-if (!mongoUri) {
-  throw new Error('MongoDB connection URI is not defined in environment variables');
-}
-
-mongoose.connect(mongoUri, {
+// Connect to MongoDB
+mongoose.connect(dbURI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
+  useUnifiedTopology: true
 });
 
-mongoose.connection.once('open', () => {
+const db = mongoose.connection;
+
+// Error handling
+db.on('error', console.error.bind(console, 'connection error:'));
+
+// Success message
+db.once('open', () => {
   console.log('Connected to MongoDB');
 });
 
-mongoose.connection.on('error', (err) => {
-  console.error('MongoDB connection error:', err);
-});
-
 module.exports = mongoose;
+
+
+
