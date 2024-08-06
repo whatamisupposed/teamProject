@@ -8,8 +8,6 @@ const UserContext = createContext();
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
 
-  // You can add logic here to fetch user data if needed
-
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {children}

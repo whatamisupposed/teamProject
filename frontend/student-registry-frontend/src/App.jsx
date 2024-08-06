@@ -31,10 +31,11 @@ function App() {
   };
 
   return (
-    <div className="flex">
+      <div className="flex">
       {activeComponent !== 'Login' && <Sidebar setActiveComponent={setActiveComponent} />}
       {renderComponent()}
-    </div>
+      </div>
+    
   );
 }
 

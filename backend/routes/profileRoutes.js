@@ -1,34 +1,62 @@
 const express = require('express');
 const auth = require('../middleware/auth');
-const Student = require('../models/student');
+const User = require('../models/user');
 
 const router = express.Router();
 
-// Get user profile
-router.get('/', auth, async (req, res) => {
+// GET /api/user
+router.get('/:id', auth, async (req, res) => {
   try {
-    const student = await Student.findById(req.user).populate('courses');
-    if (!student) {
+    const user = await User.findById(req.params.id).populate('courses'); // Ensure req.user.id is correct
+    if (!user) {
       return res.status(404).send('User not found');
     }
-    res.json(student);
+
+    res.json({
+      message: 'User profile retrieved successfully',
+      user: {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        courses: user.courses,
+        tuitionFees: user.tuitionFees,
+        creditHours: user.creditHours
+      }
+    });
   } catch (err) {
+    console.error('Profile retrieval error:', err);
     res.status(500).send('Server error');
   }
 });
 
-// Update user profile
+// PUT /api/user
 router.put('/', auth, async (req, res) => {
   const { username, email } = req.body;
 
   try {
-    const student = await Student.findByIdAndUpdate(
-      req.user,
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
       { username, email },
       { new: true }
     );
-    res.json(student);
+
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    res.json({
+      message: 'User profile updated successfully',
+      user: {
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        courses: user.courses,
+        tuitionFees: user.tuitionFees,
+        creditHours: user.creditHours
+      }
+    });
   } catch (err) {
+    console.error('Profile update error:', err);
     res.status(500).send('Server error');
   }
 });

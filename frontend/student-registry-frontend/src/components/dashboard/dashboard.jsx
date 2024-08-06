@@ -1,37 +1,54 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useUser } from '../userContext';
 import CourseCard from './courseCard';
 
 function Dashboard() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { user, token } = useUser(); // Ensure token is included in the context
 
   useEffect(() => {
+    if (!user) {
+      console.warn('No user is logged in');
+      setLoading(false);
+      return;
+    }
+  
     async function fetchStudentData() {
       try {
-        const response = await axios.get('http://localhost:3000/api/students/66ad5b06c4f6f8c44fbf623e');
-        const student = response.data;
-        const courseIds = student.courses;
-        
-        console.log('Course IDs:', courseIds);
-
-        // Fetch course details for each course ID
-        const courseRequests = courseIds.map((courseId) =>
-          axios.get(`http://localhost:3000/api/courses/${courseId}`)
-        );
-        const courseResponses = await Promise.all(courseRequests);
-        const coursesData = courseResponses.map((response) => response.data);
-        
-        setCourses(coursesData);
+        // Ensure the token is sent with the request
+        const token = localStorage.getItem('x-auth-token');
+        const response = await axios.get(`http://localhost:3000/api/user/${user.id}`, {
+          headers: {
+            'x-auth-token': token
+          }
+        });
+  
+        const student = response.data.user; // Adjusting to access the user object directly
+        console.log('Student Data:', student);
+        const courses = student.courses;
+  
+        if (!Array.isArray(courses) || courses.length === 0) {
+          console.warn('No courses found for the student');
+          setCourses([]);
+          setLoading(false);
+          return;
+        }
+  
+        console.log('Courses:', courses);
+  
+        setCourses(courses);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching student data:', error);
         setLoading(false);
       }
     }
-
+  
     fetchStudentData();
-  }, []);
+  }, [user]);
+  
 
   return (
     <div className="flex w-full m-5 ml-28">
