@@ -14,6 +14,14 @@
       "courses": [],
       "tuitionFees": 600,
       "creditHours": 18
+    },
+    {
+      "username":"guh",
+      "password":"guh",
+      "email":"guh@gmail.com",
+      "courses":["66ad4eacc4f6f8c44fbf6221","66ad4eacc4f6f8c44fbf6222"],
+      "tuitionFees":600,
+      "creditHours":18
     }
   ]
   

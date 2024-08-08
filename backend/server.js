@@ -1,11 +1,9 @@
-// server.js
-
 const express = require('express');
 const path = require('path');
 const mongoose = require('./config/mongoose');
-const studentRoutes = require('./routes/studentRoutes');
+const profileRoutes = require('./routes/profileRoutes');
 const courseRoutes = require('./routes/courseRoutes');
-const authRoutes = require('./routes/authRoutes'); // Make sure this is correctly imported
+const authRoutes = require('./routes/authRoutes');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -19,9 +17,9 @@ app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, "../client/dist")));
 
 // Routes
-app.use('/api/students', studentRoutes);
+app.use('/api/user', profileRoutes);
 app.use('/api/courses', courseRoutes);
-app.use('/api/auth', authRoutes); // Ensure this line is present
+app.use('/api/auth', authRoutes); 
 
 // Serve React app
 app.get('*', (req, res) => {
