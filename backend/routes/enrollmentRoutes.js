@@ -37,5 +37,34 @@ router.post('/enroll', auth, async (req, res) => {
   }
 });
 
+// POST /api/user/leave
+// Remove course from user's courses
+router.post('/leave', auth, async (req, res) => {
+  console.log('Request body:', req.body); // Check if courseId is being received correctly
+  const { courseId } = req.body;
+
+  if (!courseId) {
+    return res.status(400).json({ msg: 'Course ID is required' });
+  }
+
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    console.log('Current courses:', user.courses); // Log current courses
+    user.courses = user.courses.filter(course => course._id.toString() !== courseId);
+    console.log('Updated courses:', user.courses); // Log updated courses
+
+    await user.save();
+
+    res.status(200).json({ msg: 'Course removed successfully', user });
+  } catch (err) {
+    console.error('Error removing course:', err);
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+
 
 module.exports = router;

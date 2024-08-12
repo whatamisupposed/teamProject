@@ -64,6 +64,7 @@ function Dashboard() {
             courses.map((course) => (
               <CourseCard
                 key={course._id}
+                courseId={course._id}
                 name={course.name}
                 startDate={course.startDate}
                 endDate={course.endDate}
