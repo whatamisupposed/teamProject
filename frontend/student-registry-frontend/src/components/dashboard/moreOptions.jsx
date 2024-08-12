@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IoMdMore } from "react-icons/io";
 import axios from 'axios';
 
-function MoreOptions({ courseId }) {
+function MoreOptions({ courseId, refreshCourses }) {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const toggleDropdown = () => {
@@ -21,6 +21,7 @@ function MoreOptions({ courseId }) {
       });
 
       console.log(response.data.msg); // Should log "Course removed successfully"
+      refreshCourses(); // Call the function to refresh the courses list
     } catch (error) {
       console.error('Failed to remove course:', error.response.data);
     }
