@@ -4,10 +4,10 @@ const User = require('../models/user');
 
 const router = express.Router();
 
-// GET /api/user
+// GET /api/user/:id
 router.get('/:id', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.params.id).populate('courses'); // Ensure req.user.id is correct
+    const user = await User.findById(req.params.id).populate('courses');
     if (!user) {
       return res.status(404).send('User not found');
     }
@@ -30,13 +30,16 @@ router.get('/:id', auth, async (req, res) => {
 });
 
 // PUT /api/user
-// Use the auth middleware for protected routes
 router.put('/', auth, async (req, res) => {
   const { username, email } = req.body;
 
   try {
+    if (!req.user || !req.user.id) {
+      return res.status(400).json({ msg: 'User not authenticated' });
+    }
+
     const user = await User.findByIdAndUpdate(
-      req.user.id, // Ensure this is the correct field
+      req.user.id,
       { username, email },
       { new: true }
     );
@@ -62,10 +65,15 @@ router.put('/', auth, async (req, res) => {
   }
 });
 
-
 // POST /api/user/enroll
 router.post('/enroll', auth, async (req, res) => {
+  console.log('Decoded user from token:', req.user); // Debugging line
+
   try {
+    if (!req.user || !req.user.id) {
+      return res.status(400).json({ msg: 'User not authenticated' });
+    }
+
     const user = await User.findById(req.user.id);
     if (!user) {
       return res.status(404).send('User not found');
@@ -88,7 +96,5 @@ router.post('/enroll', auth, async (req, res) => {
     res.status(500).send('Server error');
   }
 });
-
-
 
 module.exports = router;
