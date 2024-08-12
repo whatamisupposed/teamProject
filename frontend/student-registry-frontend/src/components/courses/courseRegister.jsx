@@ -1,8 +1,6 @@
-// courseRegister.jsx
 import React from 'react';
 
-function CourseRegister({ name, startDate, endDate, price, color }) {
-  // Parse dates and validate
+function CourseRegister({ name, startDate, endDate, price, color, courseId, onEnroll }) {
   const formattedStartDate = new Date(startDate).toLocaleDateString();
   const formattedEndDate = new Date(endDate).toLocaleDateString();
   const isStartDateValid = !isNaN(new Date(startDate).getTime());
@@ -17,7 +15,10 @@ function CourseRegister({ name, startDate, endDate, price, color }) {
         {isStartDateValid ? formattedStartDate : 'Invalid start date'} - 
         {isEndDateValid ? formattedEndDate : 'Invalid end date'}
       </h1>
-      <button className="font-bold m-4 p-2 border-2 border-gray-200 rounded-lg hover:bg-slate-100">
+      <button
+        className="font-bold m-4 p-2 border-2 border-gray-200 rounded-lg hover:bg-slate-100"
+        onClick={() => onEnroll(courseId)} // Enroll on button click
+      >
         Enroll Now
       </button>
     </div>

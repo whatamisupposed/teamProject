@@ -6,6 +6,7 @@ const courseRoutes = require('./routes/courseRoutes');
 const authRoutes = require('./routes/authRoutes');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const enrollmentRoutes = require('./routes/enrollmentRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,7 @@ app.use(express.static(path.resolve(__dirname, "../client/dist")));
 app.use('/api/user', profileRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/auth', authRoutes); 
+app.use('/api/user', enrollmentRoutes);
 
 // Serve React app
 app.get('*', (req, res) => {

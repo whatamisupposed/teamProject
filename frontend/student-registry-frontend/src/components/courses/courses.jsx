@@ -1,7 +1,7 @@
-// Courses.jsx
 import { useState, useEffect } from "react";
 import CourseRegister from "./courseRegister";
 import CourseCategories from "./courseCategories";
+import axios from "axios";
 
 function Courses() {
     const [courses, setCourses] = useState([]);
@@ -11,9 +11,8 @@ function Courses() {
         fetch("http://localhost:3000/api/courses")
             .then(response => response.json())
             .then(data => {
-                
-                setCourses(data); // Set courses data
-                setFilteredCourses(data); // Initialize filteredCourses with all courses
+                setCourses(data);
+                setFilteredCourses(data);
             })
             .catch(error => console.error("Error fetching courses:", error));
     }, []);
@@ -40,6 +39,35 @@ function Courses() {
 
         setFilteredCourses(filtered);
     };
+    
+    const handleEnroll = async (courseId) => {
+        try {
+          // Retrieve the token from localStorage
+          const token = localStorage.getItem('x-auth-token');
+      
+          if (!token) {
+            console.error('No token found, authorization denied');
+            return;  // Exit if no token is found
+          }
+      
+          // Make the POST request to enroll in a course
+          const response = await axios.post('http://localhost:3000/api/user/enroll', 
+            { courseId },  // Send the course ID in the request body
+            {
+              headers: {
+                'x-auth-token': token  // Include the token in the request headers
+              }
+            }
+          );
+      
+          console.log('Enrollment successful:', response.data);
+          // Handle successful enrollment (e.g., update UI, show a message)
+        } catch (error) {
+          console.error('Error during enrollment:', error.response ? error.response.data : error.message);
+          // Handle the error (e.g., show an error message to the user)
+        }
+      };
+      
 
     return (
         <div className="flex w-full m-5 ml-28">
@@ -52,13 +80,15 @@ function Courses() {
                     {filteredCourses.length > 0 ? (
                         filteredCourses.map((course, index) => (
                             <CourseRegister
-                                key={index} // Ensure uniqueness if _id is not available
+                                key={index}
                                 name={course.name}
                                 startDate={course.startDate}
                                 endDate={course.endDate}
                                 price={course.price}
                                 subjectArea={course.subjectArea}
-                                color={course.color} // Pass the color property
+                                color={course.color}
+                                courseId={course._id} // Pass the course ID
+                                onEnroll={handleEnroll} // Handle enrollment
                             />
                         ))
                     ) : (
