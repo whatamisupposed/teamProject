@@ -8,6 +8,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const enrollmentRoutes = require('./routes/enrollmentRoutes');
 const signupRoutes = require('./routes/signupRoutes');
+const accountRoutes = require('./routes/accountRoutes');
+const usernameRoutes = require('./routes/usernameRoutes');
+const securityRoutes = require('./routes/securityRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -30,6 +33,9 @@ app.use('/api/courses', courseRoutes);
 app.use('/api/auth', authRoutes); 
 app.use('/api/user', enrollmentRoutes);
 app.use('/api/signup', signupRoutes);
+app.use('/', accountRoutes);
+app.use('/api/username', usernameRoutes);
+app.use('/api/security', securityRoutes);
 
 // Serve React app
 app.get('*', (req, res) => {
