@@ -11,6 +11,7 @@ const signupRoutes = require('./routes/signupRoutes');
 const accountRoutes = require('./routes/accountRoutes');
 const usernameRoutes = require('./routes/usernameRoutes');
 const securityRoutes = require('./routes/securityRoutes');
+const isAdminRoutes = require('./routes/isAdminRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -36,6 +37,7 @@ app.use('/api/signup', signupRoutes);
 app.use('/', accountRoutes);
 app.use('/api/username', usernameRoutes);
 app.use('/api/security', securityRoutes);
+app.use('/api', isAdminRoutes);
 
 // Serve React app
 app.get('*', (req, res) => {
