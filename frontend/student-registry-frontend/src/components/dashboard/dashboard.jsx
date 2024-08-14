@@ -6,7 +6,7 @@ import CourseCard from './courseCard';
 function Dashboard() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { user, token } = useUser(); // Ensure token is included in the context
+  const { user } = useUser(); // Ensure token is included in the context
 
   useEffect(() => {
     if (!user) {
@@ -14,30 +14,29 @@ function Dashboard() {
       setLoading(false);
       return;
     }
-  
+
     async function fetchStudentData() {
       try {
-        // Ensure the token is sent with the request
         const token = localStorage.getItem('x-auth-token');
         const response = await axios.get(`http://localhost:3000/api/user/${user.id}`, {
           headers: {
             'x-auth-token': token
           }
         });
-  
-        const student = response.data.user; // Adjusting to access the user object directly
+
+        const student = response.data.user;
         console.log('Student Data:', student);
         const courses = student.courses;
-  
+
         if (!Array.isArray(courses) || courses.length === 0) {
           console.warn('No courses found for the student');
           setCourses([]);
           setLoading(false);
           return;
         }
-  
+
         console.log('Courses:', courses);
-  
+
         setCourses(courses);
         setLoading(false);
       } catch (error) {
@@ -45,10 +44,25 @@ function Dashboard() {
         setLoading(false);
       }
     }
-  
+
     fetchStudentData();
   }, [user]);
-  
+
+  const updateCourses = async () => {
+    try {
+      const token = localStorage.getItem('x-auth-token');
+      const response = await axios.get(`http://localhost:3000/api/user/${user.id}`, {
+        headers: {
+          'x-auth-token': token
+        }
+      });
+
+      const student = response.data.user;
+      setCourses(student.courses);
+    } catch (error) {
+      console.error('Error fetching updated student data:', error);
+    }
+  };
 
   return (
     <div className="flex w-full m-5 ml-28">
@@ -64,11 +78,13 @@ function Dashboard() {
             courses.map((course) => (
               <CourseCard
                 key={course._id}
+                courseId={course._id}
                 name={course.name}
                 startDate={course.startDate}
                 endDate={course.endDate}
                 grade="A"
                 color={course.color}
+                refreshCourses={updateCourses} // Pass updateCourses function
               />
             ))
           ) : (

@@ -5,7 +5,7 @@ import { IoIosSchool } from "react-icons/io";
 import { GoInbox } from "react-icons/go";
 import { TbBook2 } from "react-icons/tb";
 
-function Sidebar({ setActiveComponent }) {
+function Sidebar({ setActiveComponent, onLogout }) {
     return (
       <div className="fixed flex flex-col justify-between h-screen bg-blue-600 w-24 items-center">
         <div className="flex flex-col justify-center w-24">
@@ -22,7 +22,7 @@ function Sidebar({ setActiveComponent }) {
                 <p>Dashboard</p>
             </div>
             <div className="flex flex-col py-4 items-center w-full hover:bg-blue-700" onClick={() => setActiveComponent('Courses')}>
-                <TbBook2  size={45} />
+                <TbBook2 size={45} />
                 <p>Courses</p>
             </div>
             <div className="flex flex-col py-4 items-center w-full hover:bg-blue-700" onClick={() => setActiveComponent('Inbox')}>
@@ -34,12 +34,11 @@ function Sidebar({ setActiveComponent }) {
                 <p>Help</p>
             </div>
         </div>
-        <div className="flex w-full justify-center hover:bg-blue-700">
+        <div className="flex w-full justify-center hover:bg-blue-700" onClick={onLogout}>
             <CiLogout size={40} />
         </div>
       </div>
-    )
-  }
-  
-  export default Sidebar;
-  
+    );
+}
+
+export default Sidebar;

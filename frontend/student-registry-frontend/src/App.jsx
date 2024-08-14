@@ -11,6 +11,11 @@ import Inbox from './components/inbox/inbox';
 function App() {
   const [activeComponent, setActiveComponent] = useState('Login');
 
+  const handleLogout = () => {
+    console.log('Logged out');
+    setActiveComponent('Login');
+  };
+
   const renderComponent = () => {
     switch (activeComponent) {
       case 'Login':
@@ -32,10 +37,9 @@ function App() {
 
   return (
       <div className="flex">
-      {activeComponent !== 'Login' && <Sidebar setActiveComponent={setActiveComponent} />}
+      {activeComponent !== 'Login' && <Sidebar setActiveComponent={setActiveComponent} onLogout={handleLogout} />}
       {renderComponent()}
       </div>
-    
   );
 }
 

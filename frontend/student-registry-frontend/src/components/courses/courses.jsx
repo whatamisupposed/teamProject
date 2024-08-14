@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import CourseRegister from "./courseRegister";
 import CourseCategories from "./courseCategories";
-import axios from "axios";
 
 function Courses() {
     const [courses, setCourses] = useState([]);
@@ -39,35 +38,38 @@ function Courses() {
 
         setFilteredCourses(filtered);
     };
-    
+
     const handleEnroll = async (courseId) => {
+        const token = localStorage.getItem('x-auth-token');
+      
+        if (!token) {
+          console.error('No token found');
+          return;
+        }
+      
         try {
-          // Retrieve the token from localStorage
-          const token = localStorage.getItem('x-auth-token');
+          const response = await fetch('http://localhost:3000/api/user/enroll', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-auth-token': token, // Ensure the token is included
+            },
+            body: JSON.stringify({ courseId }),
+          });
       
-          if (!token) {
-            console.error('No token found, authorization denied');
-            return;  // Exit if no token is found
+          const result = await response.json();
+      
+          if (response.ok) {
+            console.log('Enrollment successful:', result);
+          } else {
+            console.error('Enrollment failed:', result);
           }
-      
-          // Make the POST request to enroll in a course
-          const response = await axios.post('http://localhost:3000/api/user/enroll', 
-            { courseId },  // Send the course ID in the request body
-            {
-              headers: {
-                'x-auth-token': token  // Include the token in the request headers
-              }
-            }
-          );
-      
-          console.log('Enrollment successful:', response.data);
-          // Handle successful enrollment (e.g., update UI, show a message)
         } catch (error) {
-          console.error('Error during enrollment:', error.response ? error.response.data : error.message);
-          // Handle the error (e.g., show an error message to the user)
+          console.error('Error enrolling in course:', error);
         }
       };
       
+    
 
     return (
         <div className="flex w-full m-5 ml-28">
@@ -85,10 +87,9 @@ function Courses() {
                                 startDate={course.startDate}
                                 endDate={course.endDate}
                                 price={course.price}
-                                subjectArea={course.subjectArea}
                                 color={course.color}
-                                courseId={course._id} // Pass the course ID
-                                onEnroll={handleEnroll} // Handle enrollment
+                                courseId={course._id}
+                                onEnroll={handleEnroll}
                             />
                         ))
                     ) : (
