@@ -5,6 +5,7 @@ import { CgProfile } from "react-icons/cg";
 import { IoIosSchool } from "react-icons/io";
 import { GoInbox } from "react-icons/go";
 import { TbBook2 } from "react-icons/tb";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import axios from 'axios';
 import { useUser } from './userContext';
 
@@ -69,7 +70,7 @@ function Sidebar({ setActiveComponent, onLogout }) {
             </div>
             {isAdmin && (
                 <div className="flex flex-col py-4 items-center w-full hover:bg-blue-700" onClick={() => setActiveComponent('Admin')}>
-                    <CiCircleQuestion size={45} />
+                    <MdOutlineAdminPanelSettings size={45} />
                     <p>Admin</p>
                 </div>
             )}
