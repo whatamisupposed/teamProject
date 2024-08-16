@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
   courses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Course' }],
   tuitionFees: Number,
   creditHours: Number,
-  isAdmin: Boolean
+  isAdmin: { type: Boolean, default: false }
 });
 
 // Hash password before saving user
@@ -20,6 +20,6 @@ UserSchema.pre('save', async function(next) {
   next();
 });
 
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.models.User || mongoose.model('User', UserSchema);
 
 module.exports = User;

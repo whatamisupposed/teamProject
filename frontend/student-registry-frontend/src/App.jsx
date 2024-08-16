@@ -7,6 +7,7 @@ import Login from './components/login/login';
 import Courses from './components/courses/courses';
 import Help from './components/help/help';
 import Inbox from './components/inbox/inbox';
+import AdminPage from './components/admin/adminPage'
 
 function App() {
   const [activeComponent, setActiveComponent] = useState('Login');
@@ -30,6 +31,8 @@ function App() {
         return <Help />;
       case 'Inbox':
         return <Inbox />;
+      case 'Admin':
+        return <AdminPage />;
       default:
         return <Login setActiveComponent={setActiveComponent} />;
     }
