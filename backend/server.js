@@ -13,6 +13,8 @@ const usernameRoutes = require('./routes/usernameRoutes');
 const securityRoutes = require('./routes/securityRoutes');
 const isAdminRoutes = require('./routes/isAdminRoutes');
 
+const studentListRoutes = require('./routes/studentListRoutes');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -38,6 +40,7 @@ app.use('/', accountRoutes);
 app.use('/api/username', usernameRoutes);
 app.use('/api/security', securityRoutes);
 app.use('/api', isAdminRoutes);
+app.use('/api/studentList', studentListRoutes);
 
 // Serve React app
 app.get('*', (req, res) => {

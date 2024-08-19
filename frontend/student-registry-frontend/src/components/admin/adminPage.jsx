@@ -31,8 +31,8 @@ function AdminPage() {
             </div>
             <div className="w-1/4 flex justify-center">
               <div className="flex flex-col mt-5 rounded-md">
-                <button className="px-4 py-2 font-bold bg-slate-50 hover:bg-slate-200" onClick={() => setActiveComponent('AdminProfile')}>Courses Edit</button>
-                <button className="px-4 py-2 font-bold bg-slate-50 hover:bg-slate-200" onClick={() => setActiveComponent('AdminUser')}>User Edit</button>
+                <button className="px-4 py-2 font-bold bg-slate-50 hover:bg-slate-200" onClick={() => setActiveComponent('AdminProfile')}>Student List</button>
+                <button className="px-4 py-2 font-bold bg-slate-50 hover:bg-slate-200" onClick={() => setActiveComponent('AdminUser')}>Admin List</button>
                 <button className="px-4 py-2 font-bold bg-slate-50 hover:bg-slate-200" onClick={() => setActiveComponent('CourseCreate')}>Course Create</button>
                 
               </div>
