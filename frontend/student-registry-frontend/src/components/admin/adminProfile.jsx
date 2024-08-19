@@ -47,6 +47,11 @@ function AdminProfile() {
         fetchData();
     }, []);
 
+    // Function to remove a student from the state
+    const handleDeleteStudent = (userId) => {
+        setStudents(prevStudents => prevStudents.filter(student => student._id !== userId));
+    };
+
     return (
         <div className="flex w-full">
             <div className="">
@@ -66,6 +71,7 @@ function AdminProfile() {
                                     creditHours={student.creditHours}
                                     courses={student.courses} // Pass course objects here
                                     userId={student._id}
+                                    onDelete={handleDeleteStudent} // Pass the delete function as a prop
                                 />
                             ))}
                         </div>

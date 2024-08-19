@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const StudentCards = ({ username, email, tuitionFees, creditHours, courses, userId }) => {
+const StudentCards = ({ username, email, tuitionFees, creditHours, courses, userId, onDelete }) => {
     const [courseList, setCourseList] = useState(courses);
 
     const handleKick = async (courseId) => {
@@ -23,6 +23,30 @@ const StudentCards = ({ username, email, tuitionFees, creditHours, courses, user
             } else {
                 const errorData = await response.json();
                 console.error('Failed to remove course:', errorData.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    const handleDeleteUser = async () => {
+        try {
+            const token = localStorage.getItem('x-auth-token');
+            const response = await fetch(`http://localhost:3000/api/deleteUser`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': token
+                },
+                body: JSON.stringify({ userId })
+            });
+
+            if (response.ok) {
+                alert('User deleted successfully');
+                onDelete(userId); // Call the parent's delete handler
+            } else {
+                const errorData = await response.json();
+                console.error('Failed to delete user:', errorData.message);
             }
         } catch (error) {
             console.error('Error:', error);
@@ -57,7 +81,7 @@ const StudentCards = ({ username, email, tuitionFees, creditHours, courses, user
 
             <div className="flex justify-between mt-5">
                 <button className="bg-green-400 w-20 p-2 rounded-md">Edit User</button>
-                <button className="bg-red-400 w-28 p-2 rounded-md">Delete User</button>
+                <button className="bg-red-400 w-28 p-2 rounded-md" onClick={handleDeleteUser}>Delete User</button>
             </div>
         </div>
     );

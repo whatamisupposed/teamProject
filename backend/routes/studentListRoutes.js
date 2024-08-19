@@ -22,12 +22,6 @@ router.get('/courseList', async (req, res) => {
       res.status(500).json({ message: err.message });
     }
   });
-
-
-
-
-
-
   
 router.post('/removeCourse', async (req, res) => {
     const { courseId, userId } = req.body;
