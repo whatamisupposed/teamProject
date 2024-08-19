@@ -12,6 +12,9 @@ const accountRoutes = require('./routes/accountRoutes');
 const usernameRoutes = require('./routes/usernameRoutes');
 const securityRoutes = require('./routes/securityRoutes');
 const isAdminRoutes = require('./routes/isAdminRoutes');
+const deleteUserRoutes = require('./routes/deleteUserRoutes');
+const studentListRoutes = require('./routes/studentListRoutes');
+const editUserRoutes = require('./routes/editUserRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -38,6 +41,9 @@ app.use('/', accountRoutes);
 app.use('/api/username', usernameRoutes);
 app.use('/api/security', securityRoutes);
 app.use('/api', isAdminRoutes);
+app.use('/api', deleteUserRoutes);
+app.use('/api/studentList', studentListRoutes);
+app.use('/api', editUserRoutes);
 
 // Serve React app
 app.get('*', (req, res) => {
