@@ -15,6 +15,9 @@ const isAdminRoutes = require('./routes/isAdminRoutes');
 const deleteUserRoutes = require('./routes/deleteUserRoutes');
 const studentListRoutes = require('./routes/studentListRoutes');
 const editUserRoutes = require('./routes/editUserRoutes');
+const adminCourseDeleteRoutes = require('./routes/adminCourseDeleteRoutes');
+const adminCourseEditRoutes = require('./routes/adminCourseEditRoutes')
+const adminCourseRoutes = require('./routes/adminCourseRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -44,6 +47,9 @@ app.use('/api', isAdminRoutes);
 app.use('/api', deleteUserRoutes);
 app.use('/api/studentList', studentListRoutes);
 app.use('/api', editUserRoutes);
+app.use('/api', adminCourseDeleteRoutes);
+app.use('/api', adminCourseEditRoutes);
+app.use('/api', adminCourseRoutes);
 
 // Serve React app
 app.get('*', (req, res) => {
