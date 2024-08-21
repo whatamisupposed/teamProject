@@ -21,7 +21,7 @@ router.get('/:id', auth, async (req, res) => {
 router.put('/', auth, async (req, res) => {
     try {
         const { username } = req.body;
-        const user = await User.findById(req.user.id); // Ensure req.user is set by auth middleware
+        const user = await User.findById(req.user.id); 
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }

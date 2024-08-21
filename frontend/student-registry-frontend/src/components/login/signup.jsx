@@ -10,18 +10,15 @@ function Signup({ setActiveComponent, handleBackToLogin }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
   
-    // Basic email validation
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
       alert('Please enter a valid email address.');
       return;
     }
   
-    // Define the data to send
     const data = { username, email, password, userType };
   
     try {
-      // Send POST request to the backend
       const response = await fetch('http://localhost:3000/api/signup', {
         method: 'POST',
         headers: {
@@ -30,15 +27,13 @@ function Signup({ setActiveComponent, handleBackToLogin }) {
         body: JSON.stringify(data),
       });
   
-      // Handle response
       const result = await response.json();
       if (response.ok) {
         console.log('Sign up successful:', result);
-        // Optionally switch components or handle UI changes
         setActiveComponent('Login');
       } else {
         console.error('Sign up failed:', result.message);
-        alert(result.message); // Display error message from the backend
+        alert(result.message);
       }
     } catch (error) {
       console.error('Error:', error);

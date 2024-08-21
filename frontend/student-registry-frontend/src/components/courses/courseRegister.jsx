@@ -18,7 +18,7 @@ function CourseRegister({ name, startDate, endDate, price, color, courseId, onEn
             </h1>
             <button
                 className="font-bold m-4 p-2 border-2 border-gray-200 rounded-lg hover:bg-slate-100"
-                onClick={() => onEnroll(courseId)} // Ensure onEnroll is a function
+                onClick={() => onEnroll(courseId)}
             >
                 Enroll Now
             </button>

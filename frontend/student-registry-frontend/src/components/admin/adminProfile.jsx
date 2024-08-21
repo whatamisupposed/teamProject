@@ -5,28 +5,22 @@ function AdminProfile() {
     const [students, setStudents] = useState([]);
     const [courses, setCourses] = useState({});
 
-    // Define the fetchData function within the component scope
     const fetchData = async () => {
         try {
-            // Fetch users data from your backend API
             const usersResponse = await fetch('http://localhost:3000/api/studentList/studentList');
             const usersData = await usersResponse.json();
 
-            // Filter out admins
             const nonAdminUsers = usersData.filter(user => !user.isAdmin);
 
-            // Fetch courses data from your backend API
             const coursesResponse = await fetch('http://localhost:3000/api/studentList/courseList');
             const coursesData = await coursesResponse.json();
-            console.log('Courses:', coursesData); // Log courses data
+            
 
-            // Map course IDs to course names
             const courseMap = {};
             coursesData.forEach(course => {
                 courseMap[course._id] = course.name;
             });
 
-            // Add course names to users
             const studentsWithCourses = nonAdminUsers.map(user => ({
                 ...user,
                 courses: user.courses.map(courseId => ({
@@ -34,7 +28,7 @@ function AdminProfile() {
                     name: courseMap[courseId] || 'Unknown Course'
                 }))
             }));
-            console.log('Updated Students with Courses:', studentsWithCourses);
+            
 
             setStudents(studentsWithCourses);
             setCourses(courseMap);
@@ -53,7 +47,7 @@ function AdminProfile() {
     };
 
     const handleEditComplete = () => {
-        fetchData(); // Corrected reference to fetchData
+        fetchData();
     };
 
     return (

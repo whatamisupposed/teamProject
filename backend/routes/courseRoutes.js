@@ -4,9 +4,6 @@ const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-// CRUD operations for courses
-
-// Get all courses
 router.get('/', async (req, res) => {
   try {
     const courses = await Course.find();
@@ -16,7 +13,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get a course by ID
 router.get('/:id', async (req, res) => {
   try {
     const course = await Course.findById(req.params.id);
@@ -26,7 +22,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Create a new course
 router.post('/', async (req, res) => {
   try {
     const newCourse = new Course(req.body);
@@ -37,7 +32,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Update a course
 router.put('/:id', async (req, res) => {
   try {
     const course = await Course.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -47,7 +41,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete a course
 router.delete('/:id', async (req, res) => {
   try {
     await Course.findByIdAndDelete(req.params.id);

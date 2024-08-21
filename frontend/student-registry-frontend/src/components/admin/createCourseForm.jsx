@@ -6,7 +6,7 @@ const CreateCourseForm = ({ onCreate }) => {
     const [endDate, setEndDate] = useState('');
     const [price, setPrice] = useState('');
     const [subjectArea, setSubjectArea] = useState('');
-    const [color, setColor] = useState(`#${Math.floor(Math.random()*16777215).toString(16)}`); // Random color
+    const [color, setColor] = useState(`#${Math.floor(Math.random()*16777215).toString(16)}`);
 
     const handleSubmit = async (e) => {
         e.preventDefault();

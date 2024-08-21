@@ -4,7 +4,6 @@ const User = require('../models/user');
 
 const router = express.Router();
 
-// GET /api/user/:id
 router.get('/:id', auth, async (req, res) => {
   try {
     const user = await User.findById(req.params.id).populate('courses');
@@ -29,7 +28,6 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 
-// PUT /api/user
 router.put('/', auth, async (req, res) => {
   const { username, email } = req.body;
 

@@ -7,7 +7,7 @@ const auth = require('../middleware/auth');
 router.put('/editCourse', auth, async (req, res) => {
     const { courseId, newName, newStartDate, newEndDate, newPrice, newSubjectArea } = req.body;
 
-    console.log('Edit request received:', req.body); // Debugging
+    console.log('Edit request received:', req.body);
 
     if (!courseId) {
         return res.status(400).json({ message: 'Course ID is required' });
@@ -19,7 +19,6 @@ router.put('/editCourse', auth, async (req, res) => {
             return res.status(404).json({ message: 'Course not found' });
         }
 
-        // Update course details
         course.name = newName || course.name;
         course.startDate = newStartDate || course.startDate;
         course.endDate = newEndDate || course.endDate;
@@ -35,7 +34,6 @@ router.put('/editCourse', auth, async (req, res) => {
     }
 });
 
-// Create course route
 router.post('/createCourse', auth, async (req, res) => {
     const { name, startDate, endDate, price, subjectArea, color } = req.body;
 

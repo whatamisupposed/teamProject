@@ -52,7 +52,7 @@ function Courses() {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'x-auth-token': token, // Ensure the token is included
+              'x-auth-token': token,
             },
             body: JSON.stringify({ courseId }),
           });

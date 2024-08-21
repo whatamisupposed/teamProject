@@ -22,11 +22,10 @@ const adminCourseRoutes = require('./routes/adminCourseRoutes');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-
-// Configure CORS to allow the specific origin and include credentials
+// Cors
 app.use(cors({
-    origin: 'http://localhost:5173', // Your frontend URL
-    credentials: true // Allow credentials (cookies, authorization headers)
+    origin: 'http://localhost:5173', 
+    credentials: true 
 }));
 
 // Middleware

@@ -20,8 +20,8 @@ function MoreOptions({ courseId, refreshCourses }) {
         }
       });
 
-      console.log(response.data.msg); // Should log "Course removed successfully"
-      refreshCourses(); // Call the function to refresh the courses list
+      console.log(response.data.msg);
+      refreshCourses();
     } catch (error) {
       console.error('Failed to remove course:', error.response.data);
     }

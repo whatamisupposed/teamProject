@@ -21,7 +21,7 @@ const AdminCourses = () => {
     }, []);
 
     const handleEditComplete = () => {
-        // Re-fetch courses after editing
+        
         fetchCourses();
     };
 

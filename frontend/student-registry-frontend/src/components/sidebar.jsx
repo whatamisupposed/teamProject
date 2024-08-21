@@ -29,7 +29,6 @@ function Sidebar({ setActiveComponent, onLogout }) {
                     }
                 });
 
-                console.log("isAdmin response:", response.data.isAdmin);
                 setIsAdmin(response.data.isAdmin);
             } catch (err) {
                 console.error("Error checking admin status:", err.message);

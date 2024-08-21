@@ -30,17 +30,17 @@ router.post('/removeCourse', async (req, res) => {
         return res.status(400).json({ msg: 'Course ID and User ID are required' });
     }
 
-    // Validate courseId and userId format
+    
     if (!mongoose.Types.ObjectId.isValid(courseId) || !mongoose.Types.ObjectId.isValid(userId)) {
         return res.status(400).json({ msg: 'Invalid Course ID or User ID format' });
     }
 
     try {
-        // Convert courseId to ObjectId
+        
         const updatedUser = await User.findByIdAndUpdate(
             userId,
             { $pull: { courses: new mongoose.Types.ObjectId(courseId) } },
-            { new: true } // Return the updated document
+            { new: true } 
         );
 
         if (!updatedUser) {

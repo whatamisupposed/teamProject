@@ -58,7 +58,7 @@ const CourseCards = ({ name, startDate, endDate, price, subjectArea, courseId, o
                     'x-auth-token': token
                 },
                 body: JSON.stringify({
-                    courseId, // Ensure courseId is being sent here
+                    courseId, 
                     newName,
                     newStartDate,
                     newEndDate,

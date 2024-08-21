@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// Define the course schema
 const courseSchema = new Schema({
   name: { type: String, required: true },
   startDate: { type: Date, required: true },
@@ -25,10 +24,10 @@ const courseSchema = new Schema({
     ],
     required: true
   },
-  // Additional fields can be added here
+  
 });
 
-// Create the model
+
 const Course = mongoose.model('Course', courseSchema);
 
 module.exports = Course;
