@@ -24,6 +24,7 @@ const courseSchema = new Schema({
     ],
     required: true
   },
+  color: String,
   
 });
 
