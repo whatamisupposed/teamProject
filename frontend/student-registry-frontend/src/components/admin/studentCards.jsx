@@ -14,7 +14,7 @@ const StudentCards = ({ username, email, tuitionFees, creditHours, courses, user
             console.log('Sending courseId:', courseId);
             console.log('Sending userId:', userId);
 
-            const response = await fetch('http://localhost:3000/api/studentList/removeCourse', {
+            const response = await fetch('https://capstone-mtech.onrender.com/api/studentList/removeCourse', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,7 +37,7 @@ const StudentCards = ({ username, email, tuitionFees, creditHours, courses, user
     const handleDeleteUser = async () => {
         try {
             const token = localStorage.getItem('x-auth-token');
-            const response = await fetch(`http://localhost:3000/api/deleteUser`, {
+            const response = await fetch(`https://capstone-mtech.onrender.com/api/deleteUser`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -86,7 +86,7 @@ const StudentCards = ({ username, email, tuitionFees, creditHours, courses, user
         try {
             const token = localStorage.getItem('x-auth-token');
 
-            const response = await fetch('http://localhost:3000/api/editUser', {
+            const response = await fetch('https://capstone-mtech.onrender.com/api/editUser', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

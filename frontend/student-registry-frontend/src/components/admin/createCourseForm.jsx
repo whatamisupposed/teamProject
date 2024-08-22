@@ -12,7 +12,7 @@ const CreateCourseForm = ({ onCreate }) => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('x-auth-token');
-            const response = await fetch('http://localhost:3000/api/createCourse', {
+            const response = await fetch('https://capstone-mtech.onrender.com/api/createCourse', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

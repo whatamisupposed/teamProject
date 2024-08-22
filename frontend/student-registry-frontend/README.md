@@ -4,5 +4,7 @@
 - install dependencies: npm i 
 - npm run dev
 
+- (might need to disable the @fvilers/disable-react-devtools)
+
 # Explanation
 - Frontend utilizes tailwindcss for styling and is a react+vite app.

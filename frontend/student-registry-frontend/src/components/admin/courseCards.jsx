@@ -12,7 +12,7 @@ const CourseCards = ({ name, startDate, endDate, price, subjectArea, courseId, o
     const handleDeleteCourse = async () => {
         try {
             const token = localStorage.getItem('x-auth-token');
-            const response = await fetch(`http://localhost:3000/api/deleteCourse`, {
+            const response = await fetch(`https://capstone-mtech.onrender.com/api/deleteCourse`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ const CourseCards = ({ name, startDate, endDate, price, subjectArea, courseId, o
         try {
             const token = localStorage.getItem('x-auth-token');
     
-            const response = await fetch('http://localhost:3000/api/editCourse', {
+            const response = await fetch('https://capstone-mtech.onrender.com/api/editCourse', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

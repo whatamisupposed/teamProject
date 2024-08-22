@@ -16,7 +16,7 @@ function Fees() {
         async function fetchFeesAndHours() {
             try {
                 const token = localStorage.getItem('x-auth-token');
-                const response = await axios.get(`http://localhost:3000/api/user/${user.id}/fees`, {
+                const response = await axios.get(`https://capstone-mtech.onrender.com/api/user/${user.id}/fees`, {
                     headers: {
                         'x-auth-token': token
                     }

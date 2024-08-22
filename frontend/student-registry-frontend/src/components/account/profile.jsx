@@ -15,7 +15,7 @@ function Profile() {
         async function fetchUsername() {
             try {
                 const token = localStorage.getItem('x-auth-token');
-                const response = await axios.get(`http://localhost:3000/api/username/${user.id}`, {
+                const response = await axios.get(`https://capstone-mtech.onrender.com/api/username/${user.id}`, {
                     headers: {
                         'x-auth-token': token
                     }

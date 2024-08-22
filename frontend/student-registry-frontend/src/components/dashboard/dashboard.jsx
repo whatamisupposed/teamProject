@@ -18,7 +18,7 @@ function Dashboard() {
     async function fetchStudentData() {
       try {
         const token = localStorage.getItem('x-auth-token');
-        const response = await axios.get(`http://localhost:3000/api/user/${user.id}`, {
+        const response = await axios.get(`https://capstone-mtech.onrender.com/api/user/${user.id}`, {
           headers: {
             'x-auth-token': token
           }
@@ -48,7 +48,7 @@ function Dashboard() {
   const updateCourses = async () => {
     try {
       const token = localStorage.getItem('x-auth-token');
-      const response = await axios.get(`http://localhost:3000/api/user/${user.id}`, {
+      const response = await axios.get(`https://capstone-mtech.onrender.com/api/user/${user.id}`, {
         headers: {
           'x-auth-token': token
         }

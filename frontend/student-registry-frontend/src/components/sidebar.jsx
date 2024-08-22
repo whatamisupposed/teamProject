@@ -23,7 +23,7 @@ function Sidebar({ setActiveComponent, onLogout }) {
         const checkIsAdmin = async () => {
             try {
                 const token = localStorage.getItem('x-auth-token');
-                const response = await axios.get(`http://localhost:3000/api/isAdmin`, {
+                const response = await axios.get(`https://capstone-mtech.onrender.com/api/isAdmin`, {
                     headers: {
                         'x-auth-token': token
                     }

@@ -7,12 +7,12 @@ function AdminProfile() {
 
     const fetchData = async () => {
         try {
-            const usersResponse = await fetch('http://localhost:3000/api/studentList/studentList');
+            const usersResponse = await fetch('https://capstone-mtech.onrender.com/api/studentList/studentList');
             const usersData = await usersResponse.json();
 
             const nonAdminUsers = usersData.filter(user => !user.isAdmin);
 
-            const coursesResponse = await fetch('http://localhost:3000/api/studentList/courseList');
+            const coursesResponse = await fetch('https://capstone-mtech.onrender.com/api/studentList/courseList');
             const coursesData = await coursesResponse.json();
             
 

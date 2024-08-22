@@ -19,7 +19,7 @@ function Signup({ setActiveComponent, handleBackToLogin }) {
     const data = { username, email, password, userType };
   
     try {
-      const response = await fetch('http://localhost:3000/api/signup', {
+      const response = await fetch('https://capstone-mtech.onrender.com/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

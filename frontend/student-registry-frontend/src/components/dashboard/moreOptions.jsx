@@ -14,7 +14,7 @@ function MoreOptions({ courseId, refreshCourses }) {
 
     try {
       const token = localStorage.getItem('x-auth-token');
-      const response = await axios.post('http://localhost:3000/api/user/leave', { courseId }, {
+      const response = await axios.post('https://capstone-mtech.onrender.com/api/user/leave', { courseId }, {
         headers: {
           'x-auth-token': token
         }
