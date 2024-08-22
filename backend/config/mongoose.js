@@ -4,7 +4,9 @@ const dbURI = process.env.MONGODB_URI || 'mongodb+srv://marceluswork:EfHQz2FfDvg
 
 mongoose.connect(dbURI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  tls: true,
+  tlsInsecure: true,
 });
 
 const db = mongoose.connection;
