@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const dbURI = process.env.MONGODB_URI || 'mongodb+srv://marceluswork:EfHQz2FfDvgPFAOI@student-registry.7ayse6a.mongodb.net/';
 
 mongoose.connect(dbURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
   tls: true,
   tlsInsecure: true,
 });
