@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const dbURI = process.env.MONGODB_URI || 'mongodb+srv://marceluswork:EfHQz2FfDvgPFAOI@student-registry.7ayse6a.mongodb.net/';
+const dbURI = process.env.MONGODB_URI || 'mongodb+srv://marceluswork:EfHQz2FfDvgPFAOI@student-registry.7ayse6a.mongodb.net/student-registry?retryWrites=true&w=majority';
 
 mongoose.connect(dbURI, {
   tls: true,
