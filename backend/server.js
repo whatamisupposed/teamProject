@@ -31,7 +31,7 @@ app.use(cors({
 // Middleware
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(express.static(path.resolve(__dirname, "../client/dist")));
+app.use(express.static(path.resolve(__dirname, "../frontend/student-registry-frontend/dist")));
 
 // Routes
 app.use('/api/user', profileRoutes);
@@ -52,7 +52,7 @@ app.use('/api', adminCourseRoutes);
 
 // Serve React app
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
+    res.sendFile(path.resolve(__dirname, "../frontend/student-registry-frontend/dist", "index.html"));
 });
 
 // Start server
