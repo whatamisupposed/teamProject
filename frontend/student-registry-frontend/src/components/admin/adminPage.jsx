@@ -29,7 +29,7 @@ function AdminPage() {
             <div className="w-1/4 flex justify-center">
               <div className="flex flex-col mt-5 rounded-md">
                 <button className="px-4 py-2 font-bold bg-slate-50 hover:bg-slate-200" onClick={() => setActiveComponent('AdminProfile')}>Student List</button>
-                <button className="px-4 py-2 font-bold bg-slate-50 hover:bg-slate-200" onClick={() => setActiveComponent('CourseCreate')}>My Courses</button>
+                <button className="px-4 py-2 font-bold bg-slate-50 hover:bg-slate-200" onClick={() => setActiveComponent('CourseCreate')}>Courses</button>
                 
               </div>
             </div>

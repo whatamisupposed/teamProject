@@ -7,7 +7,7 @@ function Security() {
 
     const handleSave = async () => {
         try {
-            const response = await axios.put('http://localhost:3000/api/security', { email, password }, {
+            const response = await axios.put('https://capstone-mtech.onrender.com/api/security', { email, password }, {
                 headers: {
                     'x-auth-token': localStorage.getItem('x-auth-token'),
                     'Content-Type': 'application/json'

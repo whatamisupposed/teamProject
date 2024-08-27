@@ -38,7 +38,7 @@ function CourseCategories({ onFilterChange }) {
             <div className="h-px bg-slate-300 mb-4"></div>
             <h1 className="text-xl font-bold">Subject Area</h1>
             <div className="flex flex-col ml-4">
-                {/* List of checkboxes */}
+                
                 {["Art & Design", "Theology", "Business", "Computer Science", "Data Science", "Education & Teaching", "Health & Medicine", "Humanities", "Mathematics", "Programming", "Science", "Social Sciences"].map(subject => (
                     <div key={subject}>
                         <input
@@ -52,7 +52,7 @@ function CourseCategories({ onFilterChange }) {
             </div>
             <h1 className="text-xl font-bold mt-4">Price</h1>
             <div className="flex flex-col ml-4">
-                {/* List of radio buttons */}
+                
                 {["Free", "Paid"].map(priceType => (
                     <div key={priceType}>
                         <input

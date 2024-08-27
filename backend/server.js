@@ -15,21 +15,35 @@ const isAdminRoutes = require('./routes/isAdminRoutes');
 const deleteUserRoutes = require('./routes/deleteUserRoutes');
 const studentListRoutes = require('./routes/studentListRoutes');
 const editUserRoutes = require('./routes/editUserRoutes');
+const adminCourseDeleteRoutes = require('./routes/adminCourseDeleteRoutes');
+const adminCourseEditRoutes = require('./routes/adminCourseEditRoutes')
+const adminCourseRoutes = require('./routes/adminCourseRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Cors
+const allowedOrigins = [
+    'http://localhost:5173', 
+    'https://capstone-mtech-frontend.onrender.com' 
+];
 
-// Configure CORS to allow the specific origin and include credentials
 app.use(cors({
-    origin: 'http://localhost:5173', // Your frontend URL
-    credentials: true // Allow credentials (cookies, authorization headers)
+    origin: function(origin, callback) {
+        
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true 
 }));
 
 // Middleware
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(express.static(path.resolve(__dirname, "../client/dist")));
+app.use(express.static(path.resolve(__dirname, "../frontend/student-registry-frontend/dist")));
 
 // Routes
 app.use('/api/user', profileRoutes);
@@ -44,10 +58,13 @@ app.use('/api', isAdminRoutes);
 app.use('/api', deleteUserRoutes);
 app.use('/api/studentList', studentListRoutes);
 app.use('/api', editUserRoutes);
+app.use('/api', adminCourseDeleteRoutes);
+app.use('/api', adminCourseEditRoutes);
+app.use('/api', adminCourseRoutes);
 
 // Serve React app
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../client/dist", "index.html"));
+    res.sendFile(path.resolve(__dirname, "../frontend/student-registry-frontend/dist", "index.html"));
 });
 
 // Start server

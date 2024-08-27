@@ -6,7 +6,7 @@ import CourseCard from './courseCard';
 function Dashboard() {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { user } = useUser(); // Ensure token is included in the context
+  const { user } = useUser();
 
   useEffect(() => {
     if (!user) {
@@ -18,14 +18,13 @@ function Dashboard() {
     async function fetchStudentData() {
       try {
         const token = localStorage.getItem('x-auth-token');
-        const response = await axios.get(`http://localhost:3000/api/user/${user.id}`, {
+        const response = await axios.get(`https://capstone-mtech.onrender.com/api/user/${user.id}`, {
           headers: {
             'x-auth-token': token
           }
         });
 
         const student = response.data.user;
-        console.log('Student Data:', student);
         const courses = student.courses;
 
         if (!Array.isArray(courses) || courses.length === 0) {
@@ -34,8 +33,6 @@ function Dashboard() {
           setLoading(false);
           return;
         }
-
-        console.log('Courses:', courses);
 
         setCourses(courses);
         setLoading(false);
@@ -51,7 +48,7 @@ function Dashboard() {
   const updateCourses = async () => {
     try {
       const token = localStorage.getItem('x-auth-token');
-      const response = await axios.get(`http://localhost:3000/api/user/${user.id}`, {
+      const response = await axios.get(`https://capstone-mtech.onrender.com/api/user/${user.id}`, {
         headers: {
           'x-auth-token': token
         }
@@ -84,7 +81,7 @@ function Dashboard() {
                 endDate={course.endDate}
                 grade="A"
                 color={course.color}
-                refreshCourses={updateCourses} // Pass updateCourses function
+                refreshCourses={updateCourses}
               />
             ))
           ) : (
@@ -93,7 +90,6 @@ function Dashboard() {
         </div>
       </div>
       <div className="w-1/4">
-        {/* Additional content here */}
       </div>
     </div>
   );

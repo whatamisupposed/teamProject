@@ -8,7 +8,7 @@ function CourseCard({ courseId, name, startDate, endDate, grade, color, refreshC
     >
       <div className="flex justify-between p-3 h-32 mb-2 bg-red-600 rounded-t-lg" style={{ backgroundColor: color }}>
         <div></div>
-        <MoreOptions courseId={courseId} refreshCourses={refreshCourses} /> {/* Pass refreshCourses here */}
+        <MoreOptions courseId={courseId} refreshCourses={refreshCourses} />
       </div>
       <h1 className="px-3">{name}</h1>
       <h1 className="px-3">Course start: {new Date(startDate).toLocaleDateString()} - Course End: {new Date(endDate).toLocaleDateString()}</h1>

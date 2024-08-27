@@ -1,18 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user'); // Update the path as needed
+const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
-// Login route
 router.post('/login', async (req, res) => {
   console.log('Login route hit');
   const { email, password } = req.body;
 
   try {
     const user = await User.findOne({ email });
-    console.log('User found:', user); // Check if user is found
+    console.log('User found:', user); 
 
     if (!user) {
       console.log('No user found with this email');
@@ -20,13 +19,12 @@ router.post('/login', async (req, res) => {
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log('Password match:', isMatch); // Check if password matches
+    console.log('Password match:', isMatch); 
 
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-    // Create and send token
     const token = jwt.sign({ id: user._id }, config.jwtSecret, { expiresIn: '1h' });
 
     res.status(200).json({ message: 'Login successful', user, token });
@@ -36,7 +34,6 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Get user by ID route
 router.get('/:id', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);

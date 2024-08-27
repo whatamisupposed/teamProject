@@ -7,7 +7,7 @@ function Courses() {
     const [filteredCourses, setFilteredCourses] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/courses")
+        fetch("https://capstone-mtech.onrender.com/api/courses")
             .then(response => response.json())
             .then(data => {
                 setCourses(data);
@@ -48,11 +48,11 @@ function Courses() {
         }
       
         try {
-          const response = await fetch('http://localhost:3000/api/user/enroll', {
+          const response = await fetch('https://capstone-mtech.onrender.com/api/user/enroll', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'x-auth-token': token, // Ensure the token is included
+              'x-auth-token': token,
             },
             body: JSON.stringify({ courseId }),
           });

@@ -14,14 +14,14 @@ function MoreOptions({ courseId, refreshCourses }) {
 
     try {
       const token = localStorage.getItem('x-auth-token');
-      const response = await axios.post('http://localhost:3000/api/user/leave', { courseId }, {
+      const response = await axios.post('https://capstone-mtech.onrender.com/api/user/leave', { courseId }, {
         headers: {
           'x-auth-token': token
         }
       });
 
-      console.log(response.data.msg); // Should log "Course removed successfully"
-      refreshCourses(); // Call the function to refresh the courses list
+      console.log(response.data.msg);
+      refreshCourses();
     } catch (error) {
       console.error('Failed to remove course:', error.response.data);
     }

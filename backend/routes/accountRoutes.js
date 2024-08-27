@@ -3,7 +3,6 @@ const router = express.Router();
 const User = require('../models/user');
 const auth = require('../middleware/auth')
 
-// Change POST to GET
 router.get('/api/user/:id/fees', async (req, res) => {
     try {
         const user = await User.findById(req.params.id);
@@ -11,7 +10,6 @@ router.get('/api/user/:id/fees', async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
         
-        // Send the required fields in the response
         res.json({
             tuitionFees: user.tuitionFees,
             creditHours: user.creditHours
